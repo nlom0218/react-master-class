@@ -41,6 +41,18 @@ const animation = keyframes`
   }
 `
 
+const Wapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const Emoji = styled.span`
+  font-size: 36px;
+`
+
 const BoxContainer = styled.div`
   height: 200px;
   width: 200px;
@@ -49,22 +61,14 @@ const BoxContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  span {
-    font-size: 36px;
-    opacity: 0;
-    &:hover {
-      font-size: 80px;
-    }
-    :active {
-      opacity: 1;
-      transition: opacity 1s ease;
-    }
+  ${Emoji}:hover {
+    font-size: 80px;
   }
 `
 
 function App() {
-  return (<React.Fragment>
-    <Father as="header">
+  return (<Wapper>
+    {/* <Father as="header">
       <Box bgColor="teal" />
       <Circle bgColor="tomato" />
     </Father>
@@ -75,11 +79,12 @@ function App() {
     <Input />
     <Input />
     <Input />
-    <Input />
+    <Input /> */}
     <BoxContainer>
-      <span>🥰</span>
+      <Emoji as="p">🥰</Emoji>
     </BoxContainer>
-  </React.Fragment>
+    <Emoji as="p">🥰</Emoji>
+  </Wapper>
   );
 }
 
