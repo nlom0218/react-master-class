@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 const Father = styled.div`
   display: flex;
@@ -26,6 +26,42 @@ const Input = styled.input.attrs({ required: true, maxLength: "10" })`
   background-color: tomato;
 `
 
+const animation = keyframes`
+  0% {
+    transform: rotate(0deg);
+    border-radius: 0%;
+  }
+  50% {
+    transform: rotate(360deg);
+    border-radius: 50%;
+  }
+  100% {
+    transform: rotate(0deg);
+    border-radius: 0%;
+  }
+`
+
+const BoxContainer = styled.div`
+  height: 200px;
+  width: 200px;
+  background-color: tomato;
+  animation: ${animation} 3s linear infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  span {
+    font-size: 36px;
+    opacity: 0;
+    &:hover {
+      font-size: 80px;
+    }
+    :active {
+      opacity: 1;
+      transition: opacity 1s ease;
+    }
+  }
+`
+
 function App() {
   return (<React.Fragment>
     <Father as="header">
@@ -40,6 +76,9 @@ function App() {
     <Input />
     <Input />
     <Input />
+    <BoxContainer>
+      <span>🥰</span>
+    </BoxContainer>
   </React.Fragment>
   );
 }
