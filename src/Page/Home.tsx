@@ -20,6 +20,7 @@ const Home = () => {
   return <Headers>
     <Link to="/">홈</Link>
     <Link to="/circle">동그라미</Link>
+    <Link to="/form">FORM</Link>
   </Headers>
 }
 
