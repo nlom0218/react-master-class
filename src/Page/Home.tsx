@@ -9,7 +9,7 @@ const Headers = styled.div`
   background-color: ${props => props.theme.bgColor};
   a {
     border-radius: 50px;
-    background-color: ${props => props.theme.btnColor};
+    background-color: ${props => props.theme.accentColor};
     padding: 10px;
     font-size: 24px;
     text-decoration: unset;
@@ -22,6 +22,7 @@ const Home = () => {
     <Link to="/">홈</Link>
     <Link to="/circle">동그라미</Link>
     <Link to="/form">FORM</Link>
+    <Link to="/coins">COIN</Link>
   </Headers>
 }
 
