@@ -6,13 +6,14 @@ const Headers = styled.div`
   display: grid;
   row-gap: 20px;
   text-align: center;
+  background-color: ${props => props.theme.bgColor};
   a {
     border-radius: 50px;
-    background-color: turquoise;
+    background-color: ${props => props.theme.btnColor};
     padding: 10px;
     font-size: 24px;
     text-decoration: unset;
-    color: black;
+    color: ${props => props.theme.textColor};
   }
 `
 
