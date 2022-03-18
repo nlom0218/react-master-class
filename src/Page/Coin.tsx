@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useLocation, useParams } from "react-router"
 import styled from "styled-components"
 
@@ -33,16 +33,29 @@ interface RouteState {
 
 const Coin = () => {
   const [loading, setLoading] = useState(true)
-  const { coinId } = useParams()
+  const [info, setInfo] = useState({})
+  const [priceInfo, setPriceInfo] = useState({})
+
+  const { coinId } = useParams<string>()
 
   // react-router-dom v6 부터 제네릭 지원하지 않음
   const { state } = useLocation() as RouteState
+
+  useEffect(() => {
+    (async () => {
+      const infoData = await (await fetch(`https://api.coinpaprika.com/v1/coins/${coinId}`)).json()
+      const priceData = await (await fetch(`https://api.coinpaprika.com/v1/tickers/${coinId}`)).json()
+      console.log(priceData);
+      setInfo(infoData)
+      setPriceInfo(priceInfo)
+    })()
+  }, [])
 
   return (<Container>
     <Header>
       <Title>{state.name}</Title>
     </Header>
-    {loading ? <Loader>Loading...</Loader> : null}
+    {loading ? <Loader>Loading...</Loader> : <span></span>}
   </Container>
   )
 }
