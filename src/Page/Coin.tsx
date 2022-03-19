@@ -144,9 +144,6 @@ const Coin = () => {
 
   const priceMatch = useMatch("/:coinId/price")
   const chartMatch = useMatch("/:coinId/chart")
-  console.log(priceMatch);
-
-
 
   useEffect(() => {
     (async () => {
