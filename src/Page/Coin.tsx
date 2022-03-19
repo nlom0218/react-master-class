@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
-import { Outlet, useLocation, useParams } from "react-router"
+import { Outlet, useLocation, useMatch, useParams } from "react-router"
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 
 const Container = styled.div`
@@ -47,6 +48,27 @@ const OverviewItem = styled.div`
 
 const Description = styled.div`
   margin: 20px 0px;
+`
+
+const Tabs = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 25px 0px;
+  gap: 10px;
+`
+
+const Tab = styled.div<{ isActive: boolean }>`
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 400;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  color: ${props => props.isActive ? props.theme.accentColor : props.theme.textColor};
+  a {
+    padding: 7px 0px;
+    display: block;
+  }
 `
 
 interface RouteState {
@@ -120,6 +142,12 @@ const Coin = () => {
   // react-router-dom v6 부터 제네릭 지원하지 않음
   const { state } = useLocation() as RouteState
 
+  const priceMatch = useMatch("/:coinId/price")
+  const chartMatch = useMatch("/:coinId/chart")
+  console.log(priceMatch);
+
+
+
   useEffect(() => {
     (async () => {
       const infoData = await (await fetch(`https://api.coinpaprika.com/v1/coins/${coinId}`)).json()
@@ -160,6 +188,10 @@ const Coin = () => {
           <span>{priceInfo?.max_supply}</span>
         </OverviewItem>
       </Overview>
+      <Tabs>
+        <Tab isActive={chartMatch !== null}><Link to={`chart`}>Chart</Link></Tab>
+        <Tab isActive={priceMatch !== null}><Link to={`price`}>Price</Link></Tab>
+      </Tabs>
       <Outlet />
     </React.Fragment>}
   </Container>
