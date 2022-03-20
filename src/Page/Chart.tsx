@@ -2,6 +2,7 @@ import { useQuery } from "react-query";
 import { useOutletContext } from "react-router"
 import { fetchCoinHistory } from "../api"
 import ApexChart from "react-apexcharts"
+import { type } from "os";
 
 interface ICoinId {
   coinId: string
@@ -20,10 +21,8 @@ interface ICoinHistorical {
 
 const Chart = () => {
   const { coinId } = useOutletContext<ICoinId>()
-  console.log(coinId);
 
   const { isLoading, data } = useQuery<ICoinHistorical[]>(["history", coinId], () => fetchCoinHistory(coinId))
-  console.log(data);
 
   return <div>{isLoading ? "Loading chart..." : <ApexChart
     type="line"
@@ -57,10 +56,27 @@ const Chart = () => {
         axisBorder: {
           show: false
         },
+        axisTicks: {
+          show: false
+        },
+        type: "datetime"
       },
       yaxis: {
         labels: {
           show: false
+        }
+      },
+      fill: {
+        type: "gradient",
+        gradient: {
+          gradientToColors: ["#0be881"],
+          stops: [0, 100]
+        }
+      },
+      colors: ["#0fbcf9"],
+      tooltip: {
+        y: {
+          formatter: (value) => `$${value.toFixed(3)}`
         }
       }
     }} />}</div>
