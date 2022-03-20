@@ -3,7 +3,8 @@ import { useQuery } from "react-query"
 import { Outlet, useLocation, useMatch, useParams } from "react-router"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
-import { fetchCoinInfo } from "../api"
+import { fetchCoinInfo, fetchCoinTickers } from "../api"
+import { Helmet } from "react-helmet-async";
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -138,8 +139,17 @@ const Coin = () => {
   const { coinId } = useParams<string>()
 
   // useQuery의 첫번째 인재 key는 고유한 값으로 해야한다.
-  const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(["info", coinId], () => fetchCoinInfo(coinId))
-  const { isLoading: tickersLoading, data: tickersData } = useQuery<PriceData>(["tickers", coinId], () => fetchCoinInfo(coinId))
+  const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>([
+    "info", coinId],
+    () => fetchCoinInfo(coinId),
+  )
+  const { isLoading: tickersLoading, data: tickersData } = useQuery<PriceData>(
+    ["tickers", coinId],
+    () => fetchCoinTickers(coinId),
+    {
+      refetchInterval: 5000
+    }
+  )
 
   const loading = infoLoading || tickersLoading
 
@@ -150,6 +160,9 @@ const Coin = () => {
   const chartMatch = useMatch("/:coinId/chart")
 
   return (<Container>
+    <Helmet>
+      <title>{state?.name ? state.name : loading ? "Loading..." : infoData?.name}</title>
+    </Helmet>
     <Header>
       <Title>{state?.name ? state.name : loading ? "Loading..." : infoData?.name}</Title>
     </Header>
@@ -164,8 +177,8 @@ const Coin = () => {
           <span>{infoData?.symbol}</span>
         </OverviewItem>
         <OverviewItem>
-          <span>Open Source:</span>
-          <span>{infoData?.open_source ? "Yes" : "No"}</span>
+          <span>Price:</span>
+          <span>{tickersData?.quotes.USD.price}</span>
         </OverviewItem>
       </Overview>
       <Description>{infoData?.description}</Description>

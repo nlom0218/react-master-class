@@ -22,7 +22,13 @@ interface ICoinHistorical {
 const Chart = () => {
   const { coinId } = useOutletContext<ICoinId>()
 
-  const { isLoading, data } = useQuery<ICoinHistorical[]>(["history", coinId], () => fetchCoinHistory(coinId))
+  const { isLoading, data } = useQuery<ICoinHistorical[]>(
+    ["history", coinId],
+    () => fetchCoinHistory(coinId),
+    {
+      refetchInterval: 10000
+    }
+  )
 
   return <div>{isLoading ? "Loading chart..." : <ApexChart
     type="line"

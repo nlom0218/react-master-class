@@ -3,6 +3,7 @@ import { createGlobalStyle } from "styled-components";
 import Router from "./Router";
 import reset from "styled-reset";
 import { ReactQueryDevtools } from "react-query/devtools"
+import { HelmetProvider } from "react-helmet-async";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -24,7 +25,9 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   return <React.Fragment>
     <GlobalStyle />
-    <Router />
+    <HelmetProvider>
+      <Router />
+    </HelmetProvider>
     <ReactQueryDevtools initialIsOpen={false} />
   </React.Fragment>
 }
