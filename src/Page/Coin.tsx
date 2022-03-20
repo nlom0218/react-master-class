@@ -137,6 +137,7 @@ interface PriceData {
 const Coin = () => {
   const { coinId } = useParams<string>()
 
+  // useQuery의 첫번째 인재 key는 고유한 값으로 해야한다.
   const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(["info", coinId], () => fetchCoinInfo(coinId))
   const { isLoading: tickersLoading, data: tickersData } = useQuery<PriceData>(["tickers", coinId], () => fetchCoinInfo(coinId))
 
@@ -182,7 +183,7 @@ const Coin = () => {
         <Tab isActive={chartMatch !== null}><Link to={`chart`}>Chart</Link></Tab>
         <Tab isActive={priceMatch !== null}><Link to={`price`}>Price</Link></Tab>
       </Tabs>
-      <Outlet />
+      <Outlet context={{ coinId }} />
     </React.Fragment>}
   </Container>
   )
