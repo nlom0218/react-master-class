@@ -29,10 +29,8 @@ function App() {
   return <React.Fragment>
     <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
       <GlobalStyle />
-      <HelmetProvider>
-
-        <button onClick={toggleMode}>Toggle Mode</button>
-        <Router />
+      <HelmetProvider> 
+        <Router isDark={isDark} setIsDark={setIsDark} toggleMode={toggleMode}/>
       </HelmetProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </ThemeProvider>

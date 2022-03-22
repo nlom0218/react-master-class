@@ -136,6 +136,7 @@ interface PriceData {
   };
 }
 
+
 const Coin = () => {
   const { coinId } = useParams<string>()
 
