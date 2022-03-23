@@ -12,22 +12,16 @@ import Form from "./Page/Form";
 import Home from "./Page/Home";
 import Price from "./Page/Price";
 
-interface IRouterProps {
-  isDark: boolean;
-  toggleMode: () => void
-  setIsDark: React.Dispatch<React.SetStateAction<boolean>>
-}
-
-const Router = ({ isDark, setIsDark, toggleMode }: IRouterProps) => {
+const Router = () => {
   return <BrowserRouter>
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/circle" element={<Circle />} />
       <Route path="/form" element={<Form />} />
-      <Route path="/coins" element={<Coins isDark={isDark} setIsDark={setIsDark} toggleMode={toggleMode} />} />
+      <Route path="/coins" element={<Coins />} />
       <Route path="/:coinId" element={<Coin />} >
         <Route path="price" element={<Price />} />
-        <Route path="chart" element={<Chart isDark={isDark} />} />
+        <Route path="chart" element={<Chart />} />
       </Route>
     </Routes>
   </BrowserRouter>

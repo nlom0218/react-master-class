@@ -5,6 +5,8 @@ import reset from "styled-reset";
 import { ReactQueryDevtools } from "react-query/devtools"
 import { HelmetProvider } from "react-helmet-async";
 import { darkTheme, lightTheme } from './theme';
+import { useRecoilValue } from "recoil";
+import { isDarkAtom } from "./atoms";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -24,13 +26,12 @@ const GlobalStyle = createGlobalStyle`
 `
 
 function App() {
-  const [isDark, setIsDark] = useState(false)
-  const toggleMode = () => setIsDark(prev => !prev)
+  const isDark = useRecoilValue(isDarkAtom)
   return <React.Fragment>
     <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
       <GlobalStyle />
-      <HelmetProvider> 
-        <Router isDark={isDark} setIsDark={setIsDark} toggleMode={toggleMode}/>
+      <HelmetProvider>
+        <Router />
       </HelmetProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </ThemeProvider>

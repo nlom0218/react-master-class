@@ -64,13 +64,8 @@ interface ICoins {
   type: string
 }
 
-interface IRouterProps  {
-  isDark: boolean;
-  toggleMode: () => void
-  setIsDark: React.Dispatch<React.SetStateAction<boolean>>
-}
 
-const Coins = ({isDark, toggleMode, setIsDark} : IRouterProps) => {
+const Coins = () => {
   const { isLoading, data } = useQuery<ICoins[]>("allCoins", fetchCoins)
 
   return (<Container>
@@ -79,7 +74,6 @@ const Coins = ({isDark, toggleMode, setIsDark} : IRouterProps) => {
     </Helmet>
     <Header>
       <Title>Coin</Title>
-      <button onClick={toggleMode}>Toggle Mode</button>
     </Header>
     {isLoading ? <Loader>Loading...</Loader> : <CoinsList>
       {data?.slice(0, 100).map(coin => <Coin key={coin.id}>
