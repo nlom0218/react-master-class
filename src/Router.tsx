@@ -11,6 +11,7 @@ import Coins from "./Page/Coins";
 import Form from "./Page/Form";
 import Home from "./Page/Home";
 import Price from "./Page/Price";
+import ToDoList from "./Page/ToDoList";
 
 const Router = () => {
   return <BrowserRouter>
@@ -23,6 +24,7 @@ const Router = () => {
         <Route path="price" element={<Price />} />
         <Route path="chart" element={<Chart />} />
       </Route>
+      <Route path="/toDoList" element={<ToDoList />} />
     </Routes>
   </BrowserRouter>
 }
