@@ -6,9 +6,11 @@ type FormInput = {
 }
 
 const ToDoList = () => {
-  const { register, handleSubmit } = useForm<FormInput>({
+  const { register, handleSubmit, watch } = useForm<FormInput>({
     mode: "onChange"
   })
+  console.log(watch("todo"));
+
   const onSubmit = (data: FormInput) => {
     console.log(data);
 
