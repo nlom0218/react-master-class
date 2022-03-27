@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { useForm } from "react-hook-form"
+import { useRecoilState} from "recoil"
 import styled from "styled-components"
+import { toDoState } from "../atoms"
 
 const Form = styled.form`
   display: grid;
@@ -13,6 +15,8 @@ interface FormInput {
 }
 
 const ToDoList = () => {
+  const [toDos, setToDos] = useRecoilState(toDoState)
+
   const { register, handleSubmit, setValue } = useForm<FormInput>({
     mode: "onChange",
     defaultValues: {
@@ -21,11 +25,15 @@ const ToDoList = () => {
 
   const onSubmit = (data: FormInput) => {
     const { todo } = data
-    console.log("Add todo", todo);
+    setToDos(prev => [{text: todo, category: "TO_DO", id: Date.now()}, ...prev])
     setValue("todo", "")
   }
 
+  console.log(toDos);
+  
+
   return <div>
+    <h1>To Dos</h1>
     <Form onSubmit={handleSubmit(onSubmit)}>
       <input
         {...register("todo", {
@@ -35,6 +43,10 @@ const ToDoList = () => {
       />
       <button>Add</button>
     </Form>
+    <ul>
+        {toDos.map(toDo => <li key={toDo.id}>
+          {toDo.text}</li>)}
+    </ul>
   </div>
 }
 
