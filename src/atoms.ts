@@ -5,7 +5,7 @@ export const isDarkAtom = atom({
   default: false,
 })
 
-interface IToDo {
+export interface IToDo {
   text: string
   category: "DONE" | "DOING" | "TO_DO"
   id: number
