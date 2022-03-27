@@ -12,7 +12,11 @@ function ToDo({ text, category, id }: IToDo) {
     //   }
     // })
     // setToDos(newToDos)
-
+    setToDos(prev => {
+      const targetIndex = prev.findIndex(item => item.id === id)
+      const newToDos = prev.splice(targetIndex, 1, { text, id, category })
+      return newToDos
+    })
   }
   return <li>
     <span>{text}</span>
