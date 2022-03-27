@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react"
 import { Helmet } from "react-helmet-async"
 import { useQuery } from "react-query"
 import { Link } from "react-router-dom"
-import { useSetRecoilState } from "recoil"
 import styled from "styled-components"
 import { fetchCoins } from "../api"
-import { isDarkAtom } from "../atoms"
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -69,15 +66,12 @@ interface ICoins {
 
 const Coins = () => {
   const { isLoading, data } = useQuery<ICoins[]>("allCoins", fetchCoins)
-  const setDarkAtom = useSetRecoilState(isDarkAtom)
-  const toggleDarkAtom = () => setDarkAtom(prev => !prev)
   return (<Container>
     <Helmet>
       <title>Coin</title>
     </Helmet>
     <Header>
       <Title>Coin</Title>
-      <button onClick={toggleDarkAtom}>Toggle Mode</button>
     </Header>
     {isLoading ? <Loader>Loading...</Loader> : <CoinsList>
       {data?.slice(0, 100).map(coin => <Coin key={coin.id}>
