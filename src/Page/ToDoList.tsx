@@ -7,8 +7,8 @@ const ToDoList = () => {
   const toDos = useRecoilValue(toDoState)
   return <div>
     <h1>To Dos</h1>
-    <CreateToDo />
     <hr />
+    <CreateToDo />
     <ul>
       {toDos.map(toDo => <ToDo key={toDo.id} {...toDo} />)}
     </ul>
