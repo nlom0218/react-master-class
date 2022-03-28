@@ -16,7 +16,6 @@ interface FormInput {
 const CreateToDo = () => {
   const setToDos = useSetRecoilState(toDoState)
   const category = useRecoilValue<Categories>(categoryState)
-  console.log(category);
 
   const { register, handleSubmit, setValue } = useForm<FormInput>({
     mode: "onChange",

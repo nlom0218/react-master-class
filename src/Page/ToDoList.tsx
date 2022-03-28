@@ -12,9 +12,6 @@ const ToDoList = () => {
     const { currentTarget: { value } } = event as any
     setCategory(value)
   }
-  console.log(toDos);
-
-
   return <div>
     <h1>{category}</h1>
     <hr />
