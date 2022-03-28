@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form"
-import { useSetRecoilState } from "recoil"
+import { useRecoilValue, useSetRecoilState } from "recoil"
 import styled from "styled-components"
-import { toDoState } from "../../atoms"
+import { Categories, categoryState, IToDo, toDoState } from "../../atoms"
 
 const Form = styled.form`
 display: grid;
@@ -15,6 +15,9 @@ interface FormInput {
 
 const CreateToDo = () => {
   const setToDos = useSetRecoilState(toDoState)
+  const category = useRecoilValue<Categories>(categoryState)
+  console.log(category);
+
   const { register, handleSubmit, setValue } = useForm<FormInput>({
     mode: "onChange",
     defaultValues: {
@@ -23,7 +26,7 @@ const CreateToDo = () => {
 
   const onSubmit = (data: FormInput) => {
     const { todo } = data
-    setToDos(prev => [{ text: todo, category: "TO_DO", id: Date.now() }, ...prev])
+    setToDos(prev => [{ text: todo, category, id: Date.now() }, ...prev])
     setValue("todo", "")
   }
   return <Form onSubmit={handleSubmit(onSubmit)}>
