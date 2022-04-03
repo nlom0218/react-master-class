@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { useRecoilState, useRecoilValue } from "recoil"
 import { hourSelector, minuteState } from "../atoms"
@@ -7,27 +8,23 @@ interface IFormInput {
 }
 
 const Trello = () => {
-  const [minutes, setMinutes] = useRecoilState<number>(minuteState)
-  const hours = useRecoilValue(hourSelector)
+  const [minutes, setMinutes] = useRecoilState(minuteState)
+  const [hours, setHours] = useRecoilState(hourSelector)
 
-  const { register, handleSubmit, getValues } = useForm({
+  const { register, handleSubmit, getValues, setValue } = useForm({
     mode: "onChange",
-    defaultValues: {
-      minutes,
-      hours
-    }
   })
 
-  const onsubmit = (data: any) => {
-    const { minutes } = data
-    setMinutes(parseInt(minutes))
-  }
-
   const onChange = () => {
-    setMinutes(getValues("minutes"))
+    setMinutes(+getValues("minutes"))
+    setHours(+getValues("hours"))
   }
 
-  return <form onSubmit={handleSubmit(onsubmit)}>
+  useEffect(() => {
+    setValue("hours", hours)
+  }, [minutes])
+
+  return <form>
     <input
       {...register("minutes", { onChange })
       }
@@ -35,11 +32,10 @@ const Trello = () => {
       placeholder="Minutes"
     />
     <input
-      {...register("hours")}
+      {...register("hours", { onChange })}
       type="number"
       placeholder="Hours"
     />
-    <input type="submit" />
   </form>
 }
 
