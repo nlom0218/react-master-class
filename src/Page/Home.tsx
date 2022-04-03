@@ -24,6 +24,7 @@ const Home = () => {
     <Link to="/form">FORM</Link>
     <Link to="/coins">COIN</Link>
     <Link to="/toDoList">TO DO LIST</Link>
+    <Link to="/trello">TRELLO</Link>
   </Headers>
 }
 

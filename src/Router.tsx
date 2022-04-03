@@ -12,6 +12,7 @@ import Form from "./Page/Form";
 import Home from "./Page/Home";
 import Price from "./Page/Price";
 import ToDoList from "./Page/ToDoList";
+import Trello from "./Page/Trello";
 
 const Router = () => {
   return <BrowserRouter>
@@ -25,6 +26,7 @@ const Router = () => {
         <Route path="chart" element={<Chart />} />
       </Route>
       <Route path="/toDoList" element={<ToDoList />} />
+      <Route path="/trello" element={<Trello />} />
     </Routes>
   </BrowserRouter>
 }
