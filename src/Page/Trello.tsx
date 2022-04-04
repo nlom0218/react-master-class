@@ -1,5 +1,7 @@
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd"
+import { DragDropContext, Draggable, Droppable, DropResult } from "react-beautiful-dnd"
+import { useRecoilState } from "recoil"
 import styled from "styled-components"
+import { toDosState } from "../atoms"
 
 const Wrapper = styled.div`
   display: flex;
@@ -33,11 +35,13 @@ const Card = styled.div`
   margin-bottom: 5px;
 `
 
-const toDos = ["a", "b", "c", "d", "e", "f"]
-
 const Trello = () => {
 
-  const onDragEnd = () => { }
+  const [toDos, setToDos] = useRecoilState(toDosState)
+
+  const onDragEnd = ({ destination, source }: DropResult) => {
+
+  }
 
   return <DragDropContext onDragEnd={onDragEnd}>
     <Wrapper>
