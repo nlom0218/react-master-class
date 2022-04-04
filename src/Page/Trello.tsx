@@ -40,7 +40,13 @@ const Trello = () => {
   const [toDos, setToDos] = useRecoilState(toDosState)
 
   const onDragEnd = ({ destination, source }: DropResult) => {
-
+    if (!destination) return
+    setToDos(prevToDos => {
+      const copyToDos = [...prevToDos]
+      copyToDos.splice(source.index, 1)
+      copyToDos.splice(destination.index, 0, prevToDos[source.index])
+      return copyToDos
+    })
   }
 
   return <DragDropContext onDragEnd={onDragEnd}>
@@ -49,7 +55,7 @@ const Trello = () => {
         <Droppable droppableId="one">
           {(magic) =>
             <Board ref={magic.innerRef} {...magic.droppableProps}>
-              {toDos.map((toDo, index) => <Draggable draggableId={toDo} index={index} key={index}>
+              {toDos.map((toDo, index) => <Draggable draggableId={index + ""} index={index} key={index + ""}>
                 {(magic) =>
                   <Card
                     ref={magic.innerRef}
@@ -66,7 +72,7 @@ const Trello = () => {
         </Droppable>
       </Boards>
     </Wrapper>
-  </DragDropContext>
+  </DragDropContext >
 }
 
 export default Trello
