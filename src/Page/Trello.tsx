@@ -9,14 +9,20 @@ const Trello = () => {
   return <DragDropContext onDragEnd={onDragEnd}>
     <div>
       <Droppable droppableId="one">
-        {() => <ul>
-          <Draggable draggableId="first" index={0}>
-            {() => <li>ONE</li>}
-          </Draggable>
-          <Draggable draggableId="second" index={1}>
-            {() => <li>TWO</li>}
-          </Draggable>
-        </ul>}
+        {(magic) =>
+          <ul ref={magic.innerRef} {...magic.droppableProps}>
+            <Draggable draggableId="first" index={0}>
+              {(magic) =>
+                <li
+                  ref={magic.innerRef}
+                  {...magic.draggableProps}>
+                  <span {...magic.dragHandleProps}>here!</span>
+                  ONE
+                </li>
+              }
+            </Draggable>
+          </ul>
+        }
       </Droppable>
     </div>
   </DragDropContext>
