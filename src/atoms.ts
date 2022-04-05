@@ -36,7 +36,15 @@ export const toDoSelector = selector({
   }
 })
 
-export const toDosState = atom({
+interface IToDosState {
+  [key: string]: string[]
+}
+
+export const toDosState = atom<IToDosState>({
   key: "toDo",
-  default: ["a", "b", "c", "d", "e", "f"]
+  default: {
+    to_do: ["a", "b", "c", "d", "e", "f"],
+    doing: [],
+    done: []
+  }
 })
