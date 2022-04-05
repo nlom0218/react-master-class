@@ -24,14 +24,33 @@ const Trello = () => {
 
   const [toDos, setToDos] = useRecoilState(toDosState)
 
-  const onDragEnd = ({ destination, source }: DropResult) => {
+  const onDragEnd = (arg: DropResult) => {
+    console.log(arg);
+    const { destination, draggableId, source } = arg
     if (!destination) return
-    // setToDos(prevToDos => {
-    //   const copyToDos = [...prevToDos]
-    //   copyToDos.splice(source.index, 1)
-    //   copyToDos.splice(destination.index, 0, prevToDos[source.index])
-    //   return copyToDos
-    // })
+    if (destination?.droppableId === source.droppableId) {
+      setToDos(allBoards => {
+        const boardCopy = [...allBoards[source.droppableId]]
+        boardCopy.splice(source.index, 1)
+        boardCopy.splice(destination.index, 0, draggableId)
+        return {
+          ...allBoards,
+          [source.droppableId]: boardCopy
+        }
+      })
+    } else {
+      setToDos(allBoards => {
+        const sourceBoardCopy = [...allBoards[source.droppableId]]
+        sourceBoardCopy.splice(source.index, 1)
+        const destionBoardCopy = [...allBoards[destination?.droppableId]]
+        destionBoardCopy.splice(destination.index, 0, draggableId)
+        return {
+          ...allBoards,
+          [source.droppableId]: sourceBoardCopy,
+          [destination.droppableId]: destionBoardCopy
+        }
+      })
+    }
   }
 
   return <DragDropContext onDragEnd={onDragEnd}>
