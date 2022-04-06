@@ -42,12 +42,12 @@ const Trello = () => {
       setToDos(allBoards => {
         const sourceBoardCopy = [...allBoards[source.droppableId]]
         sourceBoardCopy.splice(source.index, 1)
-        const destionBoardCopy = [...allBoards[destination?.droppableId]]
-        destionBoardCopy.splice(destination.index, 0, draggableId)
+        const destinationBoardCopy = [...allBoards[destination?.droppableId]]
+        destinationBoardCopy.splice(destination.index, 0, draggableId)
         return {
           ...allBoards,
           [source.droppableId]: sourceBoardCopy,
-          [destination.droppableId]: destionBoardCopy
+          [destination.droppableId]: destinationBoardCopy
         }
       })
     }
