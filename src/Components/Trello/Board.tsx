@@ -19,9 +19,14 @@ const Title = styled.h2`
   font-size: 18px;
 `;
 
-const SBoard = styled.div`
-background-color: ${props => props.theme.boardColor};
-transition: background-color 1s ease;
+interface ISBoradProps {
+  isDraggingOver: boolean
+  draggingFromThisWith: boolean
+}
+
+const SBoard = styled.div<ISBoradProps>`
+background-color: ${props => props.isDraggingOver ? "pink" : props.draggingFromThisWith ? "red" : props.theme.boardColor};
+transition: ${props => props.isDraggingOver ? "background-color 0.3s ease-in-out" : "background-color 1s ease"};
 padding: 20px 10px;
 padding-top: 30px;
 border-radius: 5px;
@@ -38,8 +43,13 @@ const Board = ({ toDos, boardId }: IBoardProps) => {
   return <div>
     <Title>{boardId}</Title>
     <Droppable droppableId={boardId}>
-      {(magic) =>
-        <SBoard ref={magic.innerRef} {...magic.droppableProps}>
+      {(magic, info) =>
+        <SBoard
+          ref={magic.innerRef}
+          {...magic.droppableProps}
+          isDraggingOver={info.isDraggingOver}
+          draggingFromThisWith={Boolean(info.draggingFromThisWith)}
+        >
           {toDos.map((toDo, index) => <DragabbleCard key={toDo} index={index} toDo={toDo} />)}
           {magic.placeholder}
         </SBoard>
