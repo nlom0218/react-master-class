@@ -1,6 +1,8 @@
 import { useRef } from "react";
 import { Droppable } from "react-beautiful-dnd";
+import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import { INewToDo } from "../../atoms";
 import DragabbleCard from "./DragabbleCard";
 
 const Wrapper = styled.div`
@@ -42,25 +44,40 @@ const SBoard = styled.div<ISBoradProps>`
   min-height: 200px;
 `;
 
+const Form = styled.form`
+  width: 100%;
+  input {
+    width: 100%;
+  }
+`;
+
 interface IBoardProps {
-  toDos: string[];
+  toDos: INewToDo[];
   boardId: string;
 }
 
+interface IFrom {
+  toDo: string;
+}
+
 const Board = ({ toDos, boardId }: IBoardProps) => {
-  const inputRef = useRef<HTMLInputElement>(null);
-  const onClick = () => {
-    inputRef.current?.focus();
-    setTimeout(() => {
-      inputRef.current?.blur();
-    }, 5000);
+  const { register, setValue, handleSubmit } = useForm<IFrom>({
+    mode: "onChange",
+  });
+  const onValid = ({ toDo }: IFrom) => {
+    setValue("toDo", "");
   };
 
   return (
     <div>
       <Title>{boardId}</Title>
-      <input placeholder="grab me" ref={inputRef} />
-      <button onClick={onClick}>click me</button>
+      <Form onSubmit={handleSubmit(onValid)}>
+        <input
+          type="text"
+          placeholder={`Add task on ${boardId}`}
+          {...register("toDo", { required: true })}
+        />
+      </Form>
       <Droppable droppableId={boardId}>
         {(magic, info) => (
           <SBoard
@@ -70,7 +87,12 @@ const Board = ({ toDos, boardId }: IBoardProps) => {
             draggingFromThisWith={Boolean(info.draggingFromThisWith)}
           >
             {toDos.map((toDo, index) => (
-              <DragabbleCard key={toDo} index={index} toDo={toDo} />
+              <DragabbleCard
+                key={toDo.id + ""}
+                index={index}
+                toDoId={toDo.id}
+                toDoText={toDo.text}
+              />
             ))}
             {magic.placeholder}
           </SBoard>
