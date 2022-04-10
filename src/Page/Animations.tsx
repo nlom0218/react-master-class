@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { useRef } from "react";
 
 const Wrapper = styled.div`
   padding: 100px;
@@ -46,11 +47,22 @@ const Box3 = styled(motion.div)`
 `;
 
 const Box4 = styled(motion.div)`
+  width: 50px;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 10px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
+`;
+
+const BiggerBox = styled.div`
   width: 200px;
   height: 200px;
-  background-color: rgba(255, 255, 255, 1);
+  background-color: rgba(255, 255, 255, 0.2);
   border-radius: 40px;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 `;
 
 const myVars = {
@@ -99,10 +111,11 @@ const box3Var = {
     scale: 1,
     borderRadius: "50%",
   },
-  drag: { backgroundColor: "rgba(46, 204, 113)", transition: { duration: 1 } },
+  drag: {},
 };
 
 const Animations = () => {
+  const biggerBoxRef = useRef<HTMLDivElement>(null);
   return (
     <Wrapper>
       <Box variants={myVars} initial="start" animate="end" />
@@ -113,7 +126,16 @@ const Animations = () => {
         <Circle variants={circleVar} />
       </Box2>
       <Box3 variants={box3Var} whileHover="hover" whileTap="click" />
-      <Box4 drag variants={box3Var} whileDrag="drag" />
+      <BiggerBox ref={biggerBoxRef}>
+        <Box4
+          drag
+          dragConstraints={biggerBoxRef}
+          dragSnapToOrigin
+          dragElastic={0.5}
+          variants={box3Var}
+          whileDrag="drag"
+        />
+      </BiggerBox>
     </Wrapper>
   );
 };
