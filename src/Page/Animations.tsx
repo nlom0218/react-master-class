@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { motion, useMotionValue } from "framer-motion";
+import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useEffect, useRef } from "react";
 
 const Wrapper = styled.div`
   padding: 50px;
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  min-width: 100vw;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   background: linear-gradient(135deg, #e09, #d0e);
@@ -117,8 +117,9 @@ const box3Var = {
 const Animations = () => {
   const biggerBoxRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
+  const potato = useTransform(x, [-200, 0, 1200], [0.1, 1, 2]);
   useEffect(() => {
-    x.onChange(() => console.log(x.get()));
+    x.onChange(() => console.log(potato.get()));
   }, [x]);
 
   return (
@@ -141,7 +142,7 @@ const Animations = () => {
           whileDrag="drag"
         />
       </BiggerBox>
-      <Box3 drag="x" dragSnapToOrigin style={{ x }}></Box3>
+      <Box3 drag="x" dragSnapToOrigin style={{ x, scale: potato }}></Box3>
     </Wrapper>
   );
 };
