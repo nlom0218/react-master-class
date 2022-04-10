@@ -24,9 +24,8 @@ const Trello = () => {
   const [toDos, setToDos] = useRecoilState(toDosState);
 
   const onDragEnd = (arg: DropResult) => {
-    const { destination, draggableId, source } = arg;
+    const { destination, source } = arg;
     if (!destination) return;
-    console.log(arg);
     if (destination?.droppableId === source.droppableId) {
       setToDos((allBoards) => {
         const boardCopy = [...allBoards[source.droppableId]];
