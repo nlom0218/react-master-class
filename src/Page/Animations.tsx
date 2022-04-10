@@ -37,6 +37,22 @@ const Circle = styled(motion.div)`
   place-self: center;
 `;
 
+const Box3 = styled(motion.div)`
+  width: 200px;
+  height: 200px;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 40px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
+`;
+
+const Box4 = styled(motion.div)`
+  width: 200px;
+  height: 200px;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 40px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
+`;
+
 const myVars = {
   start: { scale: 0 },
   end: {
@@ -74,6 +90,18 @@ const circleVar = {
   },
 };
 
+const box3Var = {
+  hover: {
+    scale: 1.5,
+    rotateZ: 90,
+  },
+  click: {
+    scale: 1,
+    borderRadius: "50%",
+  },
+  drag: { backgroundColor: "rgba(46, 204, 113)", transition: { duration: 1 } },
+};
+
 const Animations = () => {
   return (
     <Wrapper>
@@ -84,6 +112,8 @@ const Animations = () => {
         <Circle variants={circleVar} />
         <Circle variants={circleVar} />
       </Box2>
+      <Box3 variants={box3Var} whileHover="hover" whileTap="click" />
+      <Box4 drag variants={box3Var} whileDrag="drag" />
     </Wrapper>
   );
 };
