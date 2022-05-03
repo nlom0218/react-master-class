@@ -1,14 +1,20 @@
 import styled from "styled-components";
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useTransform,
+  useViewportScroll,
+} from "framer-motion";
 import { useEffect, useRef } from "react";
 
-const Wrapper = styled.div`
+const Wrapper = styled(motion.div)`
   padding: 50px;
-  min-height: 100vh;
+  min-height: 200vh;
   min-width: 100vw;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  background: linear-gradient(135deg, #e09, #d0e);
+  align-items: flex-start;
+  background: linear-gradient(135deg, rgb(238, 0, 153), rgb(221, 0, 238));
 `;
 
 const Box = styled(motion.div)`
@@ -117,13 +123,22 @@ const box3Var = {
 const Animations = () => {
   const biggerBoxRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
-  const potato = useTransform(x, [-200, 0, 1200], [0.1, 1, 2]);
-  useEffect(() => {
-    x.onChange(() => console.log(potato.get()));
-  }, [x]);
+  const rotateZ = useTransform(x, [-200, 1200], [-360, 360]);
+  const gradient = useTransform(
+    x,
+    [-200, 0, 1200],
+    [
+      "linear-gradient(135deg, rgb(0, 171, 238), rgb(0, 32, 238))",
+      "linear-gradient(135deg, rgb(238, 0, 153), rgb(221, 0, 238))",
+      "linear-gradient(135deg, rgb(0, 238, 143), rgb(0, 238, 12)",
+    ]
+  );
+
+  const { scrollYProgress } = useViewportScroll();
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 3]);
 
   return (
-    <Wrapper>
+    <Wrapper style={{ background: gradient }}>
       <Box variants={myVars} initial="start" animate="end" />
       <Box2 variants={boxVar} initial="start" animate="end">
         <Circle variants={circleVar} />
@@ -142,7 +157,8 @@ const Animations = () => {
           whileDrag="drag"
         />
       </BiggerBox>
-      <Box3 drag="x" dragSnapToOrigin style={{ x, scale: potato }}></Box3>
+      <Box3 drag="x" dragSnapToOrigin style={{ x, rotateZ, scale }}></Box3>
+      {/* <Box3 style={{ scale }}></Box3> */}
     </Wrapper>
   );
 };
