@@ -27,6 +27,7 @@ const Home = () => {
       <Link to="/toDoList">TO DO LIST</Link>
       <Link to="/trello">TRELLO</Link>
       <Link to="/animations">ANIMATIONS</Link>
+      <Link to="/animations2">ANIMATIONS2</Link>
     </Headers>
   );
 };

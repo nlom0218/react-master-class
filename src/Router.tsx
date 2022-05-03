@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Animations from "./Page/Animations";
+import Animation2 from "./Page/Animations2";
 import Chart from "./Page/Chart";
 import Circle from "./Page/Circle";
 import Coin from "./Page/Coin";
@@ -26,6 +27,7 @@ const Router = () => {
         <Route path="/toDoList" element={<ToDoList />} />
         <Route path="/trello" element={<Trello />} />
         <Route path="/animations" element={<Animations />} />
+        <Route path="/animations2" element={<Animation2 />} />
       </Routes>
     </BrowserRouter>
   );
