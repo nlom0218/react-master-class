@@ -28,6 +28,7 @@ const Home = () => {
       <Link to="/trello">TRELLO</Link>
       <Link to="/animations">ANIMATIONS</Link>
       <Link to="/animations2">ANIMATIONS2</Link>
+      <Link to="/animations3">ANIMATIONS3</Link>
     </Headers>
   );
 };
