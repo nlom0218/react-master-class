@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Animations from "./Page/Animations";
 import Animation2 from "./Page/Animations2";
 import Animations3 from "./Page/Animations3";
+import Animations4 from "./Page/Animations4";
 import Chart from "./Page/Chart";
 import Circle from "./Page/Circle";
 import Coin from "./Page/Coin";
@@ -30,6 +31,7 @@ const Router = () => {
         <Route path="/animations" element={<Animations />} />
         <Route path="/animations2" element={<Animation2 />} />
         <Route path="/animations3" element={<Animations3 />} />
+        <Route path="/animations4" element={<Animations4 />} />
       </Routes>
     </BrowserRouter>
   );

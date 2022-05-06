@@ -29,6 +29,7 @@ const Home = () => {
       <Link to="/animations">ANIMATIONS</Link>
       <Link to="/animations2">ANIMATIONS2</Link>
       <Link to="/animations3">ANIMATIONS3</Link>
+      <Link to="/animations4">ANIMATIONS4</Link>
     </Headers>
   );
 };
