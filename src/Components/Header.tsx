@@ -74,7 +74,14 @@ const Circle = styled(motion.span)`
 const Input = styled(motion.input)`
   transform-origin: right center;
   position: absolute;
-  left: -150px;
+  right: 0px;
+  padding: 5px 10px;
+  padding-left: 40px;
+  z-index: -1;
+  color: white;
+  font-size: 16px;
+  background-color: transparent;
+  border: 1px solid ${(props) => props.theme.white.lighter};
 `;
 
 const logoVariants = {
@@ -102,10 +109,22 @@ function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const homeMatch = useMatch("/");
   const tvMatch = useMatch("/tv");
+  const inputAnimtation = useAnimation();
   const navAnimation = useAnimation();
   const { scrollY } = useViewportScroll();
 
-  const openSearch = () => setSearchOpen((prev) => !prev);
+  const openSearch = () => {
+    if (searchOpen) {
+      inputAnimtation.start({
+        scaleX: 0,
+      });
+    } else {
+      inputAnimtation.start({
+        scaleX: 1,
+      });
+    }
+    setSearchOpen((prev) => !prev);
+  };
 
   useEffect(() => {
     scrollY.onChange(() => {
@@ -146,8 +165,8 @@ function Header() {
         <Search>
           <motion.svg
             onClick={openSearch}
-            animate={{ x: searchOpen ? -180 : 0 }}
-            transition={{type: "liner"}};
+            animate={{ x: searchOpen ? -185 : 0 }}
+            transition={{ type: "linear" }}
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
@@ -159,7 +178,8 @@ function Header() {
             ></path>
           </motion.svg>
           <Input
-            animate={{ scaleX: searchOpen ? 1 : 0 }}
+            animate={inputAnimtation}
+            initial={{ scaleX: 0 }}
             placeholder="Search for movie or tv show"
           />
         </Search>
