@@ -1,20 +1,10 @@
-const BASE_URL = `https://api.coinpaprika.com/v1`
+const API_KEY = "6725650d4790dfee5aff087618cb4a61";
+const BASE_PATH = "https://api.themoviedb.org/3";
 
-export const fetchCoins = () => {
-  return fetch(`${BASE_URL}/coins`).then(res => res.json())
-}
+//https://api.themoviedb.org/3/movie/now_playing?api_key=6725650d4790dfee5aff087618cb4a61&language=en-US&page=1&region=kr
 
-export const fetchCoinInfo = (coinId: string | undefined) => {
-  return fetch(`${BASE_URL}/coins/${coinId}`).then(res => res.json())
-}
-
-export const fetchCoinTickers = (coinId: string | undefined) => {
-  return fetch(`${BASE_URL}/tickers/${coinId}`).then(res => res.json())
-}
-
-
-export const fetchCoinHistory = (coinId: string | undefined) => {
-  const endDate = Math.floor(Date.now() / 1000)
-  const startDate = endDate - 60 * 60 * 24 * 7 * 2
-  return fetch(`${BASE_URL}/coins/${coinId}/ohlcv/historical?start=${startDate}&end=${endDate}`).then(res => res.json())
+export function getMoives() {
+  return fetch(`${BASE_PATH}/movie/now_playing?api_key=${API_KEY}`).then(
+    (res) => res.json()
+  );
 }

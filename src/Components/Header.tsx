@@ -180,6 +180,7 @@ function Header() {
           <Input
             animate={inputAnimtation}
             initial={{ scaleX: 0 }}
+            transition={{ type: "linear" }}
             placeholder="Search for movie or tv show"
           />
         </Search>
